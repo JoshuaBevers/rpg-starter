@@ -1,4 +1,4 @@
-# Hero class.
+# top level class
 class Character():
 
     def __init__(self, name, health, power):
@@ -6,23 +6,27 @@ class Character():
         self.health = health
         self.name = ""
     
+    # Checks if the player is alive. Used in the battle loop.
     def isAlive(self):
         if (self.health <= 0):
+            print(str(self.name) + " is dead." )
             return False
         else: return True
     
+    #attack method
     def attack(self, defender):
         if isinstance(defender, zombie):
-            print('you are here.')
             pass
         else:
             defender.health = defender.health - self.power
             return defender.health
 
+    # print method for the basic assignment. (not used in actual gameplay.)
     def printHealth(self):
         print("The health of the {} is {} and the power is {}".format(self.name, self.health, self.power))
     
-    def choice(self, other ):
+    # Players turn.
+    def choice(self, other):
         print("You have {} health and {} power.".format(hero.health, hero.power))
         print("The {} has {} health and {} power.".format(other.name, other.health, other.power))
         print()
@@ -45,19 +49,15 @@ class Character():
         else:
             print("Invalid input %r" % user_input)
 
-
+# inherited from character. Sets the hero's turn.
 class hero(Character):
-    health = 10
-    power = 4
-    name = ""
-
     def __init__(self,name, health, power):
         self.power = power
         self.health = health
         self.name = name
 
+# Zombie class for bonus assignment.
 class zombie(Character):
-    power = 2
     def __init__(self, name, health, power):
         self.name = name
         self.health = health
@@ -65,22 +65,21 @@ class zombie(Character):
 
 # goblin class
 class goblin(Character):
-    health = 6
-    power = 2
-    name = ""
     def __init__(self,name, health, power):
         self.power = power
         self.health = health
         self.name = name
 
-
-def game(hero, enemy):
+# battle loop.
+def battle(hero, enemy):
     while (hero.isAlive() and enemy.isAlive()):
         hero.choice(enemy)
         enemy.attack(hero)
 
-        
+# Variables.
 zard = zombie("zardilla",1,2)    
 goblin = goblin("goblin",6, 2)
 hero = hero("hero", 10, 5)
-game(hero, zard)
+
+#function calls starts the battle loop.
+battle(hero, zard)
