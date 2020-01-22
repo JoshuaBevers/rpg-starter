@@ -45,6 +45,7 @@ class Character():
             return 2
         elif user_input == "3":
             print("Goodbye.")
+            exit(0)
             return 3
         else:
             print("Invalid input %r" % user_input)
